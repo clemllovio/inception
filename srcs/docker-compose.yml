@@ -21,8 +21,6 @@ services :
         - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
     env_file:
       - .env
-    volumes:
-      - ./requirements/mariadb:/var/lib/mysql:rw
     restart: on-failure
     ports:
       - 3306:3306
@@ -38,10 +36,6 @@ services :
       - .env
     ports:
       - "443:443"
-    # volume:
-    #   - ./requirements/nginx/conf/nginx.conf:etc/nginxconf.d/core.conf
-    # links:
-    #   - mariadb
 
 
 # volume:
