@@ -9,6 +9,7 @@ services :
   mariadb:
     image: mariadb
     container_name: mariadb
+    restart: on-failure
     networks:
       - inception
     build:
@@ -21,7 +22,6 @@ services :
         - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
     env_file:
       - .env
-    restart: on-failure
     ports:
       - 3306:3306
 
@@ -36,10 +36,22 @@ services :
       - .env
     ports:
       - "443:443"
+  
+  wordpress:
+    image: wordpress
+    container_name: wordpress
+    restart: on-failure
+    networks:
+      - inception
+    build:
+      context: requirements/wordpress
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
+    
 
 
 # volume:
 #   maridb:
-
-# network:
-#   inception
