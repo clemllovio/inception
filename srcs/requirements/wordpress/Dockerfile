@@ -9,10 +9,11 @@ RUN mv wp-cli.phar /usr/local/bin/wp
 
 RUN apt-get install php7.4 php-fpm php-mysqli mariadb-client -y
 
-COPY		./conf/www.conf /etc/php/7.4/fpm/pool.d
-COPY		./conf/auto_install.sh .
 
-RUN		chmod +x auto_install.sh
-ENTRYPOINT	["./auto_install.sh"]
+COPY    ./conf/www.conf /etc/php/7.4/fpm/pool.d
+COPY    ./conf/wp-config.sh .
+RUN		chmod +x wp-config.sh
+
+ENTRYPOINT	["./wp-config.sh"]
 
 CMD		["/usr/sbin/php-fpm7.4", "--nodaemonize"]

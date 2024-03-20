@@ -1,21 +1,14 @@
-# Version
 FROM		debian:bullseye
 
-# Install dependencies
 RUN		apt-get update 
 RUN		apt-get install nginx	-y
 RUN		apt-get install openssl	-y
+RUN     openssl req -x509 -nodes -days 365 -newkey rsa:4096 \
+	    -keyout /etc/ssl/private/nginx.key -out /etc/ssl/certs/nginx.crt \
+	    -subj "/C=FR/L=Lyon/O=42/OU=cllovio/CN=cllovio.42.fr"
 
-# Open port
-EXPOSE		443
+COPY	./conf/nginx.conf /etc/nginx/sites-enabled/default
 
-# Copy data to the docker env
-COPY		./conf/nginx.conf /etc/nginx/sites-enabled/default
-COPY		./conf/nginx_start.sh /var/www
-RUN		chmod +x /var/www/nginx_start.sh
+EXPOSE	443
 
-# Launch the configuration of Nginx
-ENTRYPOINT	["/var/www/nginx_start.sh"]
-
-# Execute Nginx
 CMD		["nginx", "-g", "daemon off;"]

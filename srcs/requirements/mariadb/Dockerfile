@@ -17,6 +17,7 @@ RUN service mariadb start && mysql -u root -e "CREATE DATABASE IF NOT EXISTS ${D
 EXPOSE 3306
 
 CMD ["mariadbd", "--bind_address=0.0.0.0"]
+
 # Checker si la db a bien ete cree
 #	- docker exec -it inceptiondb bash
 #	- mysql -u user -p
