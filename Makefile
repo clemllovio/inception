@@ -5,7 +5,7 @@ up:
 	mkdir -p /home/cllovio/data/wordpress
 	mkdir -p /home/cllovio/data/mariadb
 	sudo sh -c 'echo "127.0.0.1 cllovio.42.fr" >> /etc/hosts && echo "Successfully added cllovio.42.fr to /etc/hosts"'
-	docker compose -f ./srcs/docker-compose.yml up --build
+	docker compose -f ./srcs/docker-compose.yml up -d --build
 
 down:
 	docker compose -f ./srcs/docker-compose.yml down
